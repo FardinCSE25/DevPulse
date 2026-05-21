@@ -27,7 +27,6 @@ const signupUser = async (req: Request, res: Response) => {
 
 
 const loginUser = async (req: Request, res: Response) => {
-    console.log(req.body);
 
     try {
         const result = await authService.loginUserIntoDB(req.body);
