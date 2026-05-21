@@ -101,40 +101,39 @@ const getSingleIssueFromDB = async (id: string) => {
 }
 
 
-// const updateIssueIntoDB = async (payload: Issue, id: string) => {
-//     const { name, password, age, is_active, role } = payload;
-//     const result = await pool.query(`
-//     UPDATE issues 
-//     SET 
-//     name = COALESCE($1, name),
-//     password = COALESCE($2, password),
-//     age = COALESCE($3, age),
-//     is_active = COALESCE($4, is_active),
-//     role = COALESCE($6, role)
-//     WHERE id = $5
-//     RETURNING *
-//     `,
-//         [name, password, age, is_active, id, role]
-//     )
-//     delete result.rows[0].password
-//     delete result.rows[0].is_active
-//     return result;
-// }
+//! Update Issue
+const updateIssueIntoDB = async (payload: Issue, id: string) => {
+    const { title, description, type } = payload;
+    const updatedResult = await pool.query(`
+    UPDATE issues 
+    SET 
+    title = COALESCE($1, title),
+    description = COALESCE($2, description),
+    type = COALESCE($3, type),
+    updated_at = NOW()
+    WHERE id = $4
+    RETURNING *
+    `,
+        [title, description, type, id]
+    )
+    return updatedResult;
+}
 
 
-// const deleteIssueFromDB = async (id: string) => {
-//     const result = await pool.query(`
-//       DELETE FROM issues
-//       WHERE id = $1
-//       `, [id])
-//     return result;
-// }
+//! Delete Issue
+const deleteIssueFromDB = async (id: string) => {
+    const result = await pool.query(`
+      DELETE FROM issues
+      WHERE id = $1
+      `, [id])
+    return result;
+}
 
 
 export const issueService = {
     createIssueIntoDB,
     getAllIssuesFromDB,
     getSingleIssueFromDB,
-    // updateIssueIntoDB,
-    // deleteIssueFromDB
+    updateIssueIntoDB,
+    deleteIssueFromDB
 }

@@ -14,6 +14,7 @@ interface User extends Auth {
 }
 
 
+
 //! Signup User
 const signupUserIntoDB = async (payload: User) => {
     const { name, email, password, role } = payload;

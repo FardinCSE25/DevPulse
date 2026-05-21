@@ -76,68 +76,68 @@ const getSingleIssue = async (req: Request, res: Response) => {
 }
 
 
-// const updateIssue = async (req: Request, res: Response) => {
-//     const { id } = req.params;
+//! Update Issue
+const updateIssue = async (req: Request, res: Response) => {
+    const { id } = req.params;
 
-//     try {
-//         const result = await issueService.updateIssueIntoDB(req.body, id as string);
+    try {
+        const result = await issueService.updateIssueIntoDB(req.body, id as string);
 
-//         if (result.rows.length === 0) {
-//             res.status(404).json({
-//                 success: false,
-//                 message: "Issue not found !"
-//             });
-//         }
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            message: "Issue updated successfully",
+            data: result.rows[0]
+        })
 
-//         res.status(200).json({
-//             success: true,
-//             message: "Issue updated successfully !",
-//             data: result.rows[0],
-//         });
+    } catch (error: any) {
+        sendResponse(res, {
+            statusCode: 500,
+            success: false,
+            message: error.message,
+            error: error
+        })
+    }
 
-//     } catch (error: any) {
-//         res.status(500).json({
-//             success: false,
-//             message: error.message,
-//             error: error,
-//         });
-//     }
-
-// }
+}
 
 
-// const deleteIssue = async (req: Request, res: Response) => {
-//     const { id } = req.params;
+//! Delete Issue
+const deleteIssue = async (req: Request, res: Response) => {
+    const { id } = req.params;
 
-//     try {
-//         const result = await issueService.deleteIssueFromDB(id as string);
+    try {
+        const result = await issueService.deleteIssueFromDB(id as string);
 
-//         if (result.rowCount === 0) {
-//             res.status(404).json({
-//                 success: false,
-//                 message: "Issue not found !"
-//             });
-//         }
+        if (result.rowCount === 0) {
+            sendResponse(res, {
+                statusCode: 404,
+                success: false,
+                message: "Issue not found !",
+            })
+        }
 
-//         res.status(200).json({
-//             success: true,
-//             message: "Issue deleted successfully !",
-//         });
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            message: "Issue deleted successfully",
+        })
 
-//     } catch (error: any) {
-//         res.status(500).json({
-//             success: false,
-//             message: error.message,
-//             error: error
-//         });
-//     }
-// }
+    } catch (error: any) {
+        sendResponse(res, {
+            statusCode: 500,
+            success: false,
+            message: error.message,
+            error: error
+        })
+    }
+}
 
 
 export const issueController = {
     createIssue,
     getAllIssues,
     getSingleIssue,
-    // updateIssue,
-    // deleteIssue
+    updateIssue,
+    deleteIssue
 }

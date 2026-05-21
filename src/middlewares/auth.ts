@@ -13,7 +13,7 @@ const auth = (...roles: Roles[]) => {
             const token = req.headers.authorization
 
             if (!token) {
-                sendResponse(res, {
+                return sendResponse(res, {
                     statusCode: 401,
                     success: false,
                     message: "Unauthorized access (Not logged in) !",
@@ -27,7 +27,7 @@ const auth = (...roles: Roles[]) => {
             `, [decoded.id])
 
             if (userData.rows.length === 0) {
-                sendResponse(res, {
+                return sendResponse(res, {
                     statusCode: 404,
                     success: false,
                     message: "User not found (Not registered) !",
@@ -37,7 +37,7 @@ const auth = (...roles: Roles[]) => {
             const user = userData.rows[0];
 
             if (!roles.includes(user.role)) {
-                sendResponse(res, {
+                return sendResponse(res, {
                     statusCode: 403,
                     success: false,
                     message: "Forbidden access !",
