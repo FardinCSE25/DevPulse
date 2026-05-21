@@ -14,6 +14,7 @@ interface User extends Auth {
 }
 
 
+//! Signup User
 const signupUserIntoDB = async (payload: User) => {
     const { name, email, password, role } = payload;
 
@@ -31,6 +32,7 @@ const signupUserIntoDB = async (payload: User) => {
 }
 
 
+//! Login User
 const loginUserIntoDB = async (payload: Auth) => {
     const { email, password } = payload;
     const userData = await pool.query(`

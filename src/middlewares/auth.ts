@@ -8,8 +8,7 @@ import sendResponse from "../utility/sendResponse";
 
 const auth = (...roles: Roles[]) => {
     return async (req: Request, res: Response, next: NextFunction) => {
-        console.log(req?.user?.id);
-        
+
         try {
             const token = req.headers.authorization
 
@@ -22,14 +21,13 @@ const auth = (...roles: Roles[]) => {
             }
 
             const decoded = jwt.verify(token as string, config.jwt_secret as string) as JwtPayload
-// console.log(decoded);
 
             const userData = await pool.query(`
             SELECT * FROM users WHERE id = $1
             `, [decoded.id])
 
             if (userData.rows.length === 0) {
-                 sendResponse(res, {
+                sendResponse(res, {
                     statusCode: 404,
                     success: false,
                     message: "User not found (Not registered) !",
@@ -45,7 +43,6 @@ const auth = (...roles: Roles[]) => {
                     message: "Forbidden access !",
                 })
             }
-
 
             req.user = decoded;
 

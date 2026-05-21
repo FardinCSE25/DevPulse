@@ -3,8 +3,8 @@ import sendResponse from "../../utility/sendResponse";
 import { authService } from "./auth.service";
 
 
+//! Signup User
 const signupUser = async (req: Request, res: Response) => {
-
     try {
         const result = await authService.signupUserIntoDB(req.body);
 
@@ -26,6 +26,7 @@ const signupUser = async (req: Request, res: Response) => {
 }
 
 
+//! Login User
 const loginUser = async (req: Request, res: Response) => {
 
     try {

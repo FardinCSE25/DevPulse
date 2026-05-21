@@ -9,8 +9,11 @@ const router = Router();
 //! Create Issue
 router.post("/", auth(User_Role.contributor, User_Role.maintainer), issueController.createIssue);
 
-// //! Get All Issues
-// router.get("/", issueController.getAllIssues);
+//! Get All Issues
+router.get("/", issueController.getAllIssues);
+
+//! Get a Single Issue
+router.get("/:id", issueController.getSingleIssue)
 
 
 export const issueRoute = router;
