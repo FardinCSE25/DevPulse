@@ -14,14 +14,13 @@ app.use(CookieParser());
 app.use(cors({ origin: `http://localhost:${config.port}` }))
 
 app.get("/", (req: Request, res: Response) => {
-  res.status(200).json({
-    message: "DevPulse Server",
-    author: "Fardin Ahmed",
-  });
+    res.status(200).json({
+        message: "DevPulse Server",
+        author: "Fardin Ahmed",
+    });
 });
 
-app.use("/api/users", authRoute);
-// app.use("/api/profiles", profileRoute);
+app.use("/api/auth", authRoute);
 
 app.use(globalErrorHandler)
 

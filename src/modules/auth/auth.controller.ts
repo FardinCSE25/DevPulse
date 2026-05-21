@@ -3,15 +3,15 @@ import sendResponse from "../../utility/sendResponse";
 import { authService } from "./auth.service";
 
 
-const signUpUser = async (req: Request, res: Response) => {
+const signupUser = async (req: Request, res: Response) => {
 
     try {
-        const result = await authService.signUpUserIntoDB(req.body);
+        const result = await authService.signupUserIntoDB(req.body);
 
         sendResponse(res, {
             statusCode: 201,
-            success : true,
-            message: "User Signed up successfully !",
+            success: true,
+            message: "User registered successfully",
             data: result.rows[0]
         })
 
@@ -26,7 +26,31 @@ const signUpUser = async (req: Request, res: Response) => {
 }
 
 
-export const authController = {
-    signUpUser,
+const loginUser = async (req: Request, res: Response) => {
+    console.log(req.body);
 
+    try {
+        const result = await authService.loginUserIntoDB(req.body);
+
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            message: "Login successful",
+            data: result
+        })
+
+    } catch (error: any) {
+        sendResponse(res, {
+            statusCode: 500,
+            success: false,
+            message: error.message,
+            error: error
+        })
+    }
+}
+
+
+export const authController = {
+    signupUser,
+    loginUser
 }
