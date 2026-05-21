@@ -1,5 +1,5 @@
 import { Router } from "express";
-// import { userController } from "./user.controller"
+import { authController } from "./auth.controller"
 // import auth from "../../middlewares/auth";
 // import { User_Role } from "../../types";
 
@@ -7,7 +7,7 @@ const router = Router();
 
 
 //! Create User
-// router.post("/", userController.createUser);
+router.post("/", authController.signUpUser);
 
 // //! Get All Users
 // router.get("/", auth(User_Role.admin, User_Role.agent), userController.getAllUsers);
@@ -22,4 +22,4 @@ const router = Router();
 // router.delete("/:id", userController.deleteUser);
 
 
-export const userRoute = router;
+export const authRoute = router;

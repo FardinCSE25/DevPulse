@@ -2,46 +2,43 @@ import { Pool } from "pg";
 import config from "../config";
 
 export const pool = new Pool({
-  connectionString: config.connection_string
+    connectionString: config.connection_string
 });
 
 export const initDB = async () => {
-  try {
+    try {
 
-    // await pool.query(`
-    //   CREATE TABLE IF NOT EXISTS users(
-    //   id SERIAL PRIMARY KEY,
-    //   name VARCHAR(20),
-    //   email VARCHAR(20) UNIQUE NOT NULL,
-    //   password TEXT NOT NULL,
-    //   is_active BOOLEAN DEFAULT TRUE,
-    //   age INT,
-    //   role VARCHAR(10) DEFAULT 'user',
+        await pool.query(`
+      CREATE TABLE IF NOT EXISTS users(
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(20),
+      email VARCHAR(20) UNIQUE NOT NULL,
+      password TEXT NOT NULL,
+      role VARCHAR(15) DEFAULT 'contributor',
 
-    //   created_at TIMESTAMP DEFAULT NOW(),
-    //   updated_at TIMESTAMP DEFAULT NOW()
-    //   )
-    // `);
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW()
+      )
+    `);
 
-    // await pool.query(`
-    //   CREATE TABLE IF NOT EXISTS profiles(
-    //   id SERIAL PRIMARY KEY,
-    //   user_id INT UNIQUE REFERENCES users(id) ON DELETE CASCADE,
+        await pool.query(`
+      CREATE TABLE IF NOT EXISTS issues(
+      id SERIAL PRIMARY KEY,
+      title VARCHAR(150) NOT NULL,
+      description TEXT NOT NULL,
+      type VARCHAR(16) NOT NULL,
+      status VARCHAR(13) DEFAULT 'open',
+      reporter_id INT UNIQUE REFERENCES users(id) ON DELETE CASCADE,
 
-    //   bio TEXT,
-    //   address TEXT,
-    //   phone VARCHAR(11),
-    //   gender VARCHAR(9),
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW()
+      )
+    `);
 
-    //   created_at TIMESTAMP DEFAULT NOW(),
-    //   updated_at TIMESTAMP DEFAULT NOW()
-    //   )
-    // `);
+        console.log("DB connected !");
 
-    console.log("DB connected !");
-    
 
-  } catch (error) {
-    console.log(error);
-  }
+    } catch (error) {
+        console.log(error);
+    }
 };
