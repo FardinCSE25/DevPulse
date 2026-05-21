@@ -27,7 +27,7 @@ const signupUserIntoDB = async (payload: User) => {
     `,
         [name, email, hashPassword, role]
     )
-    delete result.rows[0].password
+    delete result.rows[0].password;
     return result;
 }
 
