@@ -4,6 +4,10 @@ A collaborative platform for software teams to report bugs, suggest features, an
 
 ---
 
+## 🌐 Live Deployment
+
+🚀 : https://devpulse-smoky.vercel.app
+
 # 🚀 Project Overview
 
 DevPulse is a backend REST API built with Node.js, Express.js, TypeScript, and PostgreSQL.  
@@ -430,20 +434,40 @@ Authorization: <JWT_TOKEN>
 
 ---
 
-# 📂 Suggested Project Structure
+# 📂 Project Structure
 
 ```bash
 src
 │
-├── app
-│   ├── modules
-│   │   ├── auth
-│   │   └── issues
+├── config
+│   └── index.ts
+│
+├── db
+│   └── index.ts
+│
+├── middlewares
+│   ├── auth.ts
+│   ├── globalErrorHandler.ts
+│   ├── index.d.ts
+│   └── verifyUpdateIssue.ts
+│
+├── modules
+│   ├── auth
+│   │   ├── auth.controller.ts
+│   │   ├── auth.route.ts
+│   │   └── auth.service.ts
 │   │
-│   ├── middlewares
-│   ├── utils
-│   ├── config
-│   └── interfaces
+│   └── issue
+│       ├── issue.controller.ts
+│       ├── issue.interface.ts
+│       ├── issue.route.ts
+│       └── issue.service.ts
+│
+├── types
+│   └── user.types.ts
+│
+├── utility
+│   └── sendResponse.ts
 │
 ├── app.ts
 └── server.ts
