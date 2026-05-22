@@ -248,12 +248,6 @@ Authorization: <JWT_TOKEN>
 GET /api/issues
 ```
 
-### Example
-
-```http
-GET /api/issues
-```
-
 ### Success Response
 
 ```json
@@ -321,7 +315,7 @@ PATCH /api/issues/:id
 ```
 
 ### Access
-Maintainer or issue owner
+Maintainer or issue reporter (only when the issue status is "open")
 
 ### Headers
 
