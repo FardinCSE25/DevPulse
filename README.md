@@ -248,18 +248,10 @@ Authorization: <JWT_TOKEN>
 GET /api/issues
 ```
 
-### Query Parameters
-
-| Parameter | Values |
-|---|---|
-| sort | newest, oldest |
-| type | bug, feature_request |
-| status | open, in_progress, resolved |
-
 ### Example
 
 ```http
-GET /api/issues?sort=newest&type=bug
+GET /api/issues
 ```
 
 ### Success Response
